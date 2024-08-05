@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+}
+
+.app {
+  width: 400px;
+  height: 560px;
+  background: #fff;
+  padding: 10px;
+  position: relative;
+}
+
+.main {  
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  background: #000;
+  height: 60px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.titulo-principal {
+  text-align: center;
+}
+
+.titulo-secundario {
+  color: #fff;
+  font-size: 24px;
+}
+
+.progreso {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+canvas {
+  background: transparent;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.progreso__texto {  
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 40px;
+  width: max-content;
+  font-size: 3em;
+}
+
+.control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.config {
+  width: 400px;
+  height: 560px;
+  background: rgba(0, 0, 0, .9);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.config__time {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.config__input {
+  width: 40px;
+  height: 40px;
+}
+
+.boton {
+  border: none;
+  background-color: #00ff51d1;
+  font-size: 24px;
+  padding: 10px 20px;
+  border-bottom: 1px solid #000;
+}
+
+.boton:hover {
+  border-radius: 20px;
+}
