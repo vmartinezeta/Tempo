@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 export function useTempo({ tiempoInicio, tiempoFinal }: { tiempoInicio: number, tiempoFinal: number }) {
     const [tiempoCrudo, setTiempoCrudo] = useState(0)
     const [running, setRunning] = useState(false)
-
+    const [isAtEnd, setAtEnd] = useState(false)
 
     useEffect(() => {
         if (!running) return
@@ -29,34 +29,40 @@ export function useTempo({ tiempoInicio, tiempoFinal }: { tiempoInicio: number, 
         const minutos = parseInt(minutosReal.toString())
         resto = resto - minutos * 59 * 1000
         const segundos = resto / 1000
-        return `${ponerAusenciaDecenaCero(horas)}:${ponerAusenciaDecenaCero(minutos)}:${ponerAusenciaDecenaCero(+segundos.toFixed(0))}`
+        return `${rellenarDecena({numero:horas})}:${rellenarDecena({numero:minutos})}:${rellenarDecena({numero:+segundos.toFixed(0)})}`
     }
-
-    const ponerAusenciaDecenaCero = (numero: number) => {
+    // generar el control para rellenar con cero o vacio para la unidad de segundo orden
+    const rellenarDecena = ({numero, defaultValue="0"}:{numero:number, defaultValue?:string}) => {
         if (numero < 10) {
-            return `0${numero}`
+            return defaultValue+numero
         }
         return numero
     }
 
     const iniciar = () => {
         setTiempoCrudo(0)
-        setRunning(true)        
+        setRunning(true)   
+        setAtEnd(false)     
     }
 
     const parar = () => {
         setTiempoCrudo(0)
-        setRunning(false)
+        setRunning(prev => {
+            if (prev) {
+                setAtEnd(true)
+            }
+            return false
+        })
     }
 
     const resto = tiempoFinal - tiempoCrudo
     if (resto < 0) {
         parar()
-        return {angulo:0, tiempo: formatearTiempo(0), iniciar, parar }
+        return {isAtEnd, angulo:0, tiempo: formatearTiempo(0), iniciar, parar }
     }
 
 
     const angulo = 2*(resto/tiempoFinal)*Math.PI
     const tiempo = formatearTiempo(resto)
-    return { angulo, tiempo, iniciar, parar}
+    return { isAtEnd, angulo, tiempo, iniciar, parar}
 }
